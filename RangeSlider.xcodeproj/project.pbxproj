@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5C33A2D11DAE9C5600DDCF9E /* RangeSliderFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C33A2CF1DAE9C5600DDCF9E /* RangeSliderFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5C33A2D41DAE9C5600DDCF9E /* RangeSliderFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C33A2CD1DAE9C5600DDCF9E /* RangeSliderFramework.framework */; };
-		5C33A2D51DAE9C5600DDCF9E /* RangeSliderFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5C33A2CD1DAE9C5600DDCF9E /* RangeSliderFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5C33A2D41DAE9C5600DDCF9E /* RangeSlider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C33A2CD1DAE9C5600DDCF9E /* RangeSlider.framework */; };
+		5C33A2D51DAE9C5600DDCF9E /* RangeSlider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5C33A2CD1DAE9C5600DDCF9E /* RangeSlider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5C33A2DA1DAE9C6B00DDCF9E /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3917261BA4A89300515C54 /* RangeSlider.swift */; };
 		5C3917151BA4A83600515C54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3917141BA4A83600515C54 /* AppDelegate.swift */; };
 		5C3917171BA4A83600515C54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3917161BA4A83600515C54 /* ViewController.swift */; };
@@ -36,7 +36,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5C33A2D51DAE9C5600DDCF9E /* RangeSliderFramework.framework in Embed Frameworks */,
+				5C33A2D51DAE9C5600DDCF9E /* RangeSlider.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -44,7 +44,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5C33A2CD1DAE9C5600DDCF9E /* RangeSliderFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RangeSliderFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C33A2CD1DAE9C5600DDCF9E /* RangeSlider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RangeSlider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C33A2CF1DAE9C5600DDCF9E /* RangeSliderFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RangeSliderFramework.h; sourceTree = "<group>"; };
 		5C33A2D01DAE9C5600DDCF9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C3917111BA4A83600515C54 /* Example-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,7 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C33A2D41DAE9C5600DDCF9E /* RangeSliderFramework.framework in Frameworks */,
+				5C33A2D41DAE9C5600DDCF9E /* RangeSlider.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,7 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				5C3917111BA4A83600515C54 /* Example-Swift.app */,
-				5C33A2CD1DAE9C5600DDCF9E /* RangeSliderFramework.framework */,
+				5C33A2CD1DAE9C5600DDCF9E /* RangeSlider.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -139,9 +139,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		5C33A2CC1DAE9C5600DDCF9E /* RangeSliderFramework */ = {
+		5C33A2CC1DAE9C5600DDCF9E /* RangeSlider */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5C33A2D61DAE9C5600DDCF9E /* Build configuration list for PBXNativeTarget "RangeSliderFramework" */;
+			buildConfigurationList = 5C33A2D61DAE9C5600DDCF9E /* Build configuration list for PBXNativeTarget "RangeSlider" */;
 			buildPhases = (
 				5C33A2C81DAE9C5600DDCF9E /* Sources */,
 				5C33A2C91DAE9C5600DDCF9E /* Frameworks */,
@@ -152,9 +152,9 @@
 			);
 			dependencies = (
 			);
-			name = RangeSliderFramework;
+			name = RangeSlider;
 			productName = RangeSliderFramework;
-			productReference = 5C33A2CD1DAE9C5600DDCF9E /* RangeSliderFramework.framework */;
+			productReference = 5C33A2CD1DAE9C5600DDCF9E /* RangeSlider.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		5C3917101BA4A83600515C54 /* Example-Swift */ = {
@@ -209,7 +209,7 @@
 			projectRoot = "";
 			targets = (
 				5C3917101BA4A83600515C54 /* Example-Swift */,
-				5C33A2CC1DAE9C5600DDCF9E /* RangeSliderFramework */,
+				5C33A2CC1DAE9C5600DDCF9E /* RangeSlider */,
 			);
 		};
 /* End PBXProject section */
@@ -258,7 +258,7 @@
 /* Begin PBXTargetDependency section */
 		5C33A2D31DAE9C5600DDCF9E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5C33A2CC1DAE9C5600DDCF9E /* RangeSliderFramework */;
+			target = 5C33A2CC1DAE9C5600DDCF9E /* RangeSlider */;
 			targetProxy = 5C33A2D21DAE9C5600DDCF9E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -451,7 +451,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5C33A2D61DAE9C5600DDCF9E /* Build configuration list for PBXNativeTarget "RangeSliderFramework" */ = {
+		5C33A2D61DAE9C5600DDCF9E /* Build configuration list for PBXNativeTarget "RangeSlider" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5C33A2D71DAE9C5600DDCF9E /* Debug */,
