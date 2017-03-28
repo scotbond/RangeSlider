@@ -15,6 +15,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        rangeSlider1.maximumValue = 1000.0
+        rangeSlider1.upperValue = 1000.0
+        rangeSlider1.minimumValue = 10.0
+        rangeSlider1.lowerValue = 10.0
+
         rangeSlider2.trackHighlightTintColor = UIColor.red
         rangeSlider2.curvaceousness = 0.0
         

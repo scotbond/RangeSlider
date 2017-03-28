@@ -88,6 +88,7 @@ class RangeSliderThumbLayer: CALayer {
 public class RangeSlider: UIControl {
 
     /// RangeSlider's minimum possible value.
+    /// Default value: 0.0.
     @IBInspectable public var minimumValue: Double = 0.0 {
         willSet(newValue) {
             assert(newValue < maximumValue, "RangeSlider: minimumValue should be lower than maximumValue")
@@ -98,6 +99,7 @@ public class RangeSlider: UIControl {
     }
 
     /// RangeSlider's maximum possible value.
+    /// Default value: 1.0.
     @IBInspectable public var maximumValue: Double = 1.0 {
         willSet(newValue) {
             assert(newValue > minimumValue, "RangeSlider: maximumValue should be greater than minimumValue")
@@ -108,6 +110,7 @@ public class RangeSlider: UIControl {
     }
 
     /// RangeSlider's current lower value.
+    /// Default value: 0.2.
     @IBInspectable public var lowerValue: Double = 0.2 {
         didSet {
             if lowerValue < minimumValue {
@@ -118,6 +121,7 @@ public class RangeSlider: UIControl {
     }
 
     /// RangeSlider's current maximum value.
+    /// Default value: 0.8.
     @IBInspectable public var upperValue: Double = 0.8 {
         didSet {
             if upperValue > maximumValue {
@@ -128,6 +132,7 @@ public class RangeSlider: UIControl {
     }
 
     /// RangeSlider's track color when value are not in range.
+    /// Default value: UIColor(white: 0.9, alpha: 1.0).
     @IBInspectable public var trackTintColor: UIColor = UIColor(white: 0.9, alpha: 1.0) {
         didSet {
             trackLayer.setNeedsDisplay()
@@ -135,6 +140,7 @@ public class RangeSlider: UIControl {
     }
 
     /// RangeSlider's track color when value are in range.
+    /// /// Default value: UIColor(red: 0.0, green: 0.45, blue: 0.94, alpha: 1.0).
     @IBInspectable public var trackHighlightTintColor: UIColor = UIColor(red: 0.0, green: 0.45, blue: 0.94, alpha: 1.0) {
         didSet {
             trackLayer.setNeedsDisplay()
@@ -142,7 +148,8 @@ public class RangeSlider: UIControl {
     }
 
     /// RangleSlider's thumb "button" color.
-    @IBInspectable public var thumbTintColor: UIColor = UIColor.white {
+    /// Default value: .white.
+    @IBInspectable public var thumbTintColor: UIColor = .white {
         didSet {
             lowerThumbLayer.setNeedsDisplay()
             upperThumbLayer.setNeedsDisplay()
@@ -150,7 +157,8 @@ public class RangeSlider: UIControl {
     }
 
     /// RangleSlider's thumb "button" boder color.
-    @IBInspectable public var thumbBorderColor: UIColor = UIColor.gray {
+    /// Default value: .gray.
+    @IBInspectable public var thumbBorderColor: UIColor = .gray {
         didSet {
             lowerThumbLayer.strokeColor = thumbBorderColor
             upperThumbLayer.strokeColor = thumbBorderColor
@@ -158,6 +166,7 @@ public class RangeSlider: UIControl {
     }
 
     /// RangeSlider's thumb "button" border width.
+    /// Default value: 0.5
     @IBInspectable public var thumbBorderWidth: CGFloat = 0.5 {
         didSet {
             lowerThumbLayer.lineWidth = thumbBorderWidth
@@ -166,7 +175,8 @@ public class RangeSlider: UIControl {
     }
 
     /// Thumb's "button" curvaceousness.
-    /// Should be between 0.0 and 1.0
+    /// Should be between 0.0 and 1.0.
+    /// Default value: 1.0
     @IBInspectable public var curvaceousness: CGFloat = 1.0 {
         didSet {
             // Force curvaceousness to be between 0 and 1
@@ -179,6 +189,7 @@ public class RangeSlider: UIControl {
     }
 
     var gapBetweenThumbs: Double {
+        print("gapBetweenThumbs \(0.5 * Double(thumbWidth) * (maximumValue - minimumValue) / Double(bounds.width))")
         return 0.5 * Double(thumbWidth) * (maximumValue - minimumValue) / Double(bounds.width)
     }
 
