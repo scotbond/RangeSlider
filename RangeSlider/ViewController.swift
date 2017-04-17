@@ -10,22 +10,23 @@ import UIKit
 
 class ViewController: UIViewController {
     let rangeSlider1 = RangeSlider(frame: CGRect.zero)
-    let rangeSlider2 = RangeSlider(frame: CGRect.zero)
-    
+//    let rangeSlider2 = RangeSlider(frame: CGRect.zero)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         rangeSlider1.maximumValue = 1000.0
         rangeSlider1.upperValue = 1000.0
-        rangeSlider1.minimumValue = 10.0
-        rangeSlider1.lowerValue = 10.0
+        rangeSlider1.minimumValue = 0.0
+        rangeSlider1.lowerValue = 50.0
+        rangeSlider1.interval = 10
 
-        rangeSlider2.trackHighlightTintColor = UIColor.red
-        rangeSlider2.curvaceousness = 0.0
-        
+//        rangeSlider2.trackHighlightTintColor = UIColor.red
+//        rangeSlider2.curvaceousness = 0.0
+
         view.addSubview(rangeSlider1)
-        view.addSubview(rangeSlider2)
-        
+//        view.addSubview(rangeSlider2)
+
         rangeSlider1.addTarget(self, action: #selector(ViewController.rangeSliderValueChanged(_:)), for: .valueChanged)
     }
     
@@ -34,8 +35,8 @@ class ViewController: UIViewController {
         let width = view.bounds.width - 2.0 * margin
         rangeSlider1.frame = CGRect(x: margin, y: margin + topLayoutGuide.length + 100,
             width: width, height: 31.0)
-        rangeSlider2.frame = CGRect(x: margin + 20, y: 5 * margin + topLayoutGuide.length + 100,
-            width: width - 40, height: 40)
+//        rangeSlider2.frame = CGRect(x: margin + 20, y: 5 * margin + topLayoutGuide.length + 100,
+//            width: width - 40, height: 40)
     }
     
     override func didReceiveMemoryWarning() {

@@ -13,9 +13,7 @@ class RangeSliderTrackLayer: CALayer {
     weak var rangeSlider: RangeSlider?
 
     override func draw(in ctx: CGContext) {
-        guard let slider = rangeSlider else {
-            return
-        }
+        guard let slider = rangeSlider else { return }
 
         // Clip
         let cornerRadius = bounds.height * slider.curvaceousness / 2.0
@@ -29,8 +27,8 @@ class RangeSliderTrackLayer: CALayer {
 
         // Fill the highlighted range
         ctx.setFillColor(slider.trackHighlightTintColor.cgColor)
-        let lowerValuePosition = CGFloat(slider.positionForValue(slider.lowerValue))
-        let upperValuePosition = CGFloat(slider.positionForValue(slider.upperValue))
+        let lowerValuePosition = CGFloat(slider.lowerThumbCenterX)
+        let upperValuePosition = CGFloat(slider.upperThumbCenterX)
         let rect = CGRect(x: lowerValuePosition, y: 0.0, width: upperValuePosition - lowerValuePosition, height: bounds.height)
         ctx.fill(rect)
     }
@@ -57,9 +55,7 @@ class RangeSliderThumbLayer: CALayer {
     }
 
     override func draw(in ctx: CGContext) {
-        guard let slider = rangeSlider else {
-            return
-        }
+        guard let slider = rangeSlider else { return }
 
         let thumbFrame = bounds.insetBy(dx: 2.0, dy: 2.0)
         let cornerRadius = thumbFrame.height * slider.curvaceousness / 2.0
@@ -116,7 +112,6 @@ public class RangeSlider: UIControl {
             if lowerValue < minimumValue {
                 lowerValue = minimumValue
             }
-            updateLayerFrames()
         }
     }
 
@@ -127,9 +122,10 @@ public class RangeSlider: UIControl {
             if upperValue > maximumValue {
                 upperValue = maximumValue
             }
-            updateLayerFrames()
         }
     }
+
+    @IBInspectable public var interval: Double = 1.0
 
     /// RangeSlider's track color when value are not in range.
     /// Default value: UIColor(white: 0.9, alpha: 1.0).
@@ -146,6 +142,8 @@ public class RangeSlider: UIControl {
             trackLayer.setNeedsDisplay()
         }
     }
+
+    @IBInspectable public var trackHeight: CGFloat = 2.0
 
     /// RangleSlider's thumb "button" color.
     /// Default value: .white.
@@ -174,6 +172,8 @@ public class RangeSlider: UIControl {
         }
     }
 
+    @IBInspectable public var thumbHeight: CGFloat = 5.0
+
     /// Thumb's "button" curvaceousness.
     /// Should be between 0.0 and 1.0.
     /// Default value: 1.0
@@ -188,9 +188,25 @@ public class RangeSlider: UIControl {
         }
     }
 
-    var gapBetweenThumbs: Double {
-        print("gapBetweenThumbs \(0.5 * Double(thumbWidth) * (maximumValue - minimumValue) / Double(bounds.width))")
-        return 0.5 * Double(thumbWidth) * (maximumValue - minimumValue) / Double(bounds.width)
+    fileprivate var lowerThumbCenterX: CGFloat = 0.0 {
+        didSet {
+            updateLayerFrames()
+        }
+    }
+
+    fileprivate var upperThumbCenterX: CGFloat = 0.0 {
+        didSet {
+            updateLayerFrames()
+        }
+    }
+
+    fileprivate var range: Double {
+        return maximumValue - minimumValue
+    }
+
+
+    fileprivate var step: Double {
+        return (Double(bounds.width) * interval) / range
     }
 
     fileprivate var previouslocation = CGPoint()
@@ -203,8 +219,15 @@ public class RangeSlider: UIControl {
         return CGFloat(bounds.height)
     }
 
+    fileprivate var thumbOffset: CGFloat {
+        return thumbWidth / 2.0
+    }
+
     override public var frame: CGRect {
         didSet {
+            updateLayerFrames()
+            lowerThumbCenterX = CGFloat(positionForValue(lowerValue))
+            upperThumbCenterX = CGFloat(positionForValue(upperValue))
             updateLayerFrames()
         }
     }
@@ -220,7 +243,7 @@ public class RangeSlider: UIControl {
     }
 
     override public func layoutSublayers(of: CALayer) {
-        super.layoutSublayers(of:layer)
+        super.layoutSublayers(of: layer)
         updateLayerFrames()
     }
 
@@ -244,26 +267,28 @@ public class RangeSlider: UIControl {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
 
-        trackLayer.frame = bounds.insetBy(dx: 0.0, dy: bounds.height/3)
+        trackLayer.frame =  CGRect(x: thumbOffset, y: (bounds.size.height - trackHeight) / 2.0, width: (bounds.size.width - thumbWidth), height: trackHeight)
         trackLayer.setNeedsDisplay()
 
-        let lowerThumbCenter = CGFloat(positionForValue(lowerValue))
-        lowerThumbLayer.frame = CGRect(x: lowerThumbCenter - thumbWidth/2.0, y: 0.0, width: thumbWidth, height: thumbWidth)
+        lowerThumbLayer.frame = CGRect(x: lowerThumbCenterX, y: 0.0, width: thumbWidth, height: thumbWidth)
         lowerThumbLayer.setNeedsDisplay()
 
-        let upperThumbCenter = CGFloat(positionForValue(upperValue))
-        upperThumbLayer.frame = CGRect(x: upperThumbCenter - thumbWidth/2.0, y: 0.0, width: thumbWidth, height: thumbWidth)
+        upperThumbLayer.frame = CGRect(x: upperThumbCenterX, y: 0.0, width: thumbWidth, height: thumbWidth)
         upperThumbLayer.setNeedsDisplay()
 
         CATransaction.commit()
     }
 
+    // MARK: - Utils
     func positionForValue(_ value: Double) -> Double {
-        return Double(bounds.width - thumbWidth) * (value - minimumValue) /
-            (maximumValue - minimumValue) + Double(thumbWidth/2.0)
+        return Double(trackLayer.frame.size.width) * (value / range)
     }
 
-    func boundValue(_ value: Double, toLowerValue lowerValue: Double, upperValue: Double) -> Double {
+    func valueForPosition(_ position: CGFloat) -> Double {
+        return round(Double(position) / step) * interval
+    }
+
+    func boundValue<T: Comparable>(_ value: T, lowerValue: T, upperValue: T) -> T {
         return min(max(value, lowerValue), upperValue)
     }
 
@@ -274,11 +299,8 @@ public class RangeSlider: UIControl {
         previouslocation = touch.location(in: self)
 
         // Hit test the thumb layers
-        if lowerThumbLayer.frame.contains(previouslocation) {
-            lowerThumbLayer.highlighted = true
-        } else if upperThumbLayer.frame.contains(previouslocation) {
-            upperThumbLayer.highlighted = true
-        }
+        upperThumbLayer.highlighted = upperThumbLayer.frame.contains(previouslocation)
+        lowerThumbLayer.highlighted = !upperThumbLayer.highlighted && lowerThumbLayer.frame.contains(previouslocation)
 
         return lowerThumbLayer.highlighted || upperThumbLayer.highlighted
     }
@@ -287,17 +309,17 @@ public class RangeSlider: UIControl {
         let location = touch.location(in: self)
 
         // Determine by how much the user has dragged
-        let deltaLocation = Double(location.x - previouslocation.x)
-        let deltaValue = (maximumValue - minimumValue) * deltaLocation / Double(bounds.width - bounds.height)
+        let deltaLocation = location.x - thumbOffset
+
+        if lowerThumbLayer.highlighted {
+            lowerThumbCenterX = boundValue(deltaLocation, lowerValue: trackLayer.frame.origin.x - thumbOffset, upperValue: upperThumbCenterX - thumbOffset)
+            lowerValue = boundValue(valueForPosition(location.x - thumbOffset), lowerValue: minimumValue, upperValue: upperValue - interval)
+        } else if upperThumbLayer.highlighted {
+            upperThumbCenterX = boundValue(deltaLocation, lowerValue: lowerThumbCenterX + thumbOffset, upperValue: trackLayer.frame.size.width - trackLayer.frame.origin.x + thumbOffset)
+            upperValue = boundValue(valueForPosition(location.x + thumbOffset), lowerValue: lowerValue + interval, upperValue: maximumValue)
+        }
 
         previouslocation = location
-
-        // Update the values
-        if lowerThumbLayer.highlighted {
-            lowerValue = boundValue(lowerValue + deltaValue, toLowerValue: minimumValue, upperValue: upperValue - gapBetweenThumbs)
-        } else if upperThumbLayer.highlighted {
-            upperValue = boundValue(upperValue + deltaValue, toLowerValue: lowerValue + gapBetweenThumbs, upperValue: maximumValue)
-        }
 
         sendActions(for: .valueChanged)
 

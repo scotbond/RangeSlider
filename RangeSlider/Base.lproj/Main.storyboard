@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,55 +20,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQO-Yc-D8F" customClass="RangeSlider" customModule="Example_Swift" customModuleProvider="target">
-                                <rect key="frame" x="67.5" y="566" width="240" height="43"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0De-ns-Hs0">
+                                <rect key="frame" x="187" y="20" width="1" height="647"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="AJi-lb-Ilg"/>
-                                    <constraint firstAttribute="height" constant="43" id="tnh-9Z-h2n"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
-                                        <real key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="lowerValue">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="upperValue">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="trackTintColor">
-                                        <color key="value" red="1" green="0.35686274509999999" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="trackHighlightTintColor">
-                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="thumbTintColor">
-                                        <color key="value" red="1" green="0.96862745100000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="curvaceousness">
-                                        <real key="value" value="0.59999999999999998"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AsD-zw-Yxv" customClass="RangeSlider" customModule="Example_Swift" customModuleProvider="target">
-                                <rect key="frame" x="50" y="516" width="275" height="30"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="bqb-l3-6NV"/>
+                                    <constraint firstAttribute="width" constant="1" id="dOm-jm-E2g"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="kQO-Yc-D8F" firstAttribute="top" secondItem="AsD-zw-Yxv" secondAttribute="bottom" constant="20" id="345-Gp-Xga"/>
-                            <constraint firstItem="kQO-Yc-D8F" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="H1I-SU-ViG"/>
-                            <constraint firstAttribute="trailing" secondItem="AsD-zw-Yxv" secondAttribute="trailing" constant="50" id="M26-Ns-STa"/>
-                            <constraint firstItem="AsD-zw-Yxv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="50" id="ZSF-Ee-JQM"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="kQO-Yc-D8F" secondAttribute="bottom" constant="58" id="bL8-88-isy"/>
+                            <constraint firstItem="0De-ns-Hs0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="0k9-wt-FeB"/>
+                            <constraint firstItem="0De-ns-Hs0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ahm-2v-1d9"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="0De-ns-Hs0" secondAttribute="bottom" id="pgB-Wm-oKR"/>
                         </constraints>
                     </view>
                 </viewController>
