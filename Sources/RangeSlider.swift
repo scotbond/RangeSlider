@@ -250,6 +250,8 @@ public class RangeSlider: UIControl {
         updateLayerFrames()
     }
 
+
+
     fileprivate func initializeLayers() {
         layer.backgroundColor = UIColor.clear.cgColor
 
@@ -264,11 +266,15 @@ public class RangeSlider: UIControl {
         upperThumbLayer.rangeSlider = self
         upperThumbLayer.contentsScale = UIScreen.main.scale
         layer.addSublayer(upperThumbLayer)
+    }
 
+    public override func setNeedsDisplay() {
+        super.setNeedsDisplay()
         lowerThumbCenterX = CGFloat(positionForValue(lowerValue))
         upperThumbCenterX = CGFloat(positionForValue(upperValue))
         updateLayerFrames()
     }
+
 
     func updateLayerFrames() {
         CATransaction.begin()
