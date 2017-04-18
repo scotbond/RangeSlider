@@ -106,8 +106,8 @@ public class RangeSlider: UIControl {
     }
 
     /// RangeSlider's current lower value.
-    /// Default value: 0.2.
-    @IBInspectable public var lowerValue: Double = 0.2 {
+    /// Default value: 0.0.
+    @IBInspectable public var lowerValue: Double = 0.0 {
         didSet {
             if lowerValue < minimumValue {
                 lowerValue = minimumValue
@@ -116,8 +116,8 @@ public class RangeSlider: UIControl {
     }
 
     /// RangeSlider's current maximum value.
-    /// Default value: 0.8.
-    @IBInspectable public var upperValue: Double = 0.8 {
+    /// Default value: 1.0.
+    @IBInspectable public var upperValue: Double = 1.0 {
         didSet {
             if upperValue > maximumValue {
                 upperValue = maximumValue
@@ -267,6 +267,7 @@ public class RangeSlider: UIControl {
 
         lowerThumbCenterX = CGFloat(positionForValue(lowerValue))
         upperThumbCenterX = CGFloat(positionForValue(upperValue))
+        updateLayerFrames()
     }
 
     func updateLayerFrames() {
