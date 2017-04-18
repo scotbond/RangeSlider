@@ -18,7 +18,7 @@ class ViewController: UIViewController {
 
         rangeSlider1.maximumValue = 1000.0
         rangeSlider1.minimumValue = 10.0
-        rangeSlider1.lowerValue = 50.0
+        rangeSlider1.lowerValue = 10.0
         rangeSlider1.upperValue = 1000.0
         rangeSlider1.interval = 10
 

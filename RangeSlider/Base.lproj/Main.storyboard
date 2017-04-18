@@ -27,12 +27,39 @@
                                     <constraint firstAttribute="width" constant="1" id="dOm-jm-E2g"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BRD-cR-TTe" customClass="RangeSlider" customModule="Example_Swift" customModuleProvider="target">
+                                <rect key="frame" x="15" y="597" width="345" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="i34-ry-F9P"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                                        <real key="value" value="1000"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="lowerValue">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="upperValue">
+                                        <real key="value" value="1000"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="interval">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="0De-ns-Hs0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="0k9-wt-FeB"/>
+                            <constraint firstAttribute="trailing" secondItem="BRD-cR-TTe" secondAttribute="trailing" constant="15" id="IDo-Er-WcF"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="BRD-cR-TTe" secondAttribute="bottom" constant="50" id="RMa-qd-o8I"/>
                             <constraint firstItem="0De-ns-Hs0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ahm-2v-1d9"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="0De-ns-Hs0" secondAttribute="bottom" id="pgB-Wm-oKR"/>
+                            <constraint firstItem="BRD-cR-TTe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="trL-JD-644"/>
                         </constraints>
                     </view>
                 </viewController>

@@ -86,9 +86,9 @@ public class RangeSlider: UIControl {
     /// RangeSlider's minimum possible value.
     /// Default value: 0.0.
     @IBInspectable public var minimumValue: Double = 0.0 {
-        willSet(newValue) {
-            assert(newValue < maximumValue, "RangeSlider: minimumValue should be lower than maximumValue")
-        }
+//        willSet(newValue) {
+//            assert(newValue < maximumValue, "RangeSlider: minimumValue should be lower than maximumValue")
+//        }
         didSet {
             updateLayerFrames()
         }
@@ -97,9 +97,9 @@ public class RangeSlider: UIControl {
     /// RangeSlider's maximum possible value.
     /// Default value: 1.0.
     @IBInspectable public var maximumValue: Double = 1.0 {
-        willSet(newValue) {
-            assert(newValue > minimumValue, "RangeSlider: maximumValue should be greater than minimumValue")
-        }
+//        willSet(newValue) {
+//            assert(newValue > minimumValue, "RangeSlider: maximumValue should be greater than minimumValue")
+//        }
         didSet {
             updateLayerFrames()
         }
@@ -289,6 +289,13 @@ public class RangeSlider: UIControl {
         upperThumbLayer.setNeedsDisplay()
 
         CATransaction.commit()
+    }
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        lowerThumbCenterX = CGFloat(positionForValue(lowerValue))
+        upperThumbCenterX = CGFloat(positionForValue(upperValue))
+        updateLayerFrames()
     }
 
     // MARK: - Utils
