@@ -112,6 +112,9 @@ public class RangeSlider: UIControl {
             if lowerValue < minimumValue {
                 lowerValue = minimumValue
             }
+
+            lowerThumbCenterX = positionForValue(lowerValue) //boundValue(positionForValue(lowerValue), lowerValue: trackLayer.frame.origin.x - thumbOffset, upperValue: upperThumbCenterX - thumbOffset)
+            updateLayerFrames()
         }
     }
 
@@ -122,6 +125,9 @@ public class RangeSlider: UIControl {
             if upperValue > maximumValue {
                 upperValue = maximumValue
             }
+
+            upperThumbCenterX = positionForValue(upperValue) //boundValue(positionForValue(upperValue), lowerValue: lowerThumbCenterX + thumbOffset, upperValue: trackLayer.frame.size.width - trackLayer.frame.origin.x + thumbOffset)
+            updateLayerFrames()
         }
     }
 
@@ -192,17 +198,9 @@ public class RangeSlider: UIControl {
         }
     }
 
-    fileprivate var lowerThumbCenterX: CGFloat = 0.0 {
-        didSet {
-            updateLayerFrames()
-        }
-    }
+    fileprivate var lowerThumbCenterX: CGFloat = 0.0
 
-    fileprivate var upperThumbCenterX: CGFloat = 0.0 {
-        didSet {
-            updateLayerFrames()
-        }
-    }
+    fileprivate var upperThumbCenterX: CGFloat = 0.0
 
     fileprivate var range: Double {
         return maximumValue - minimumValue
@@ -213,6 +211,8 @@ public class RangeSlider: UIControl {
         return (Double(bounds.width) * interval) / range
     }
 
+    fileprivate var previousX: CGFloat = 0.0
+    fileprivate var currentDistance: CGFloat = 0.0
     fileprivate var previouslocation = CGPoint()
 
     fileprivate let trackLayer = RangeSliderTrackLayer()
@@ -232,6 +232,7 @@ public class RangeSlider: UIControl {
             lowerThumbCenterX = CGFloat(positionForValue(lowerValue))
             upperThumbCenterX = CGFloat(positionForValue(upperValue))
             updateLayerFrames()
+            setNeedsDisplay()
         }
     }
 
@@ -250,7 +251,13 @@ public class RangeSlider: UIControl {
         updateLayerFrames()
     }
 
+    public override func setNeedsDisplay() {
+        super.setNeedsDisplay()
+        lowerThumbCenterX = CGFloat(positionForValue(lowerValue))
+        upperThumbCenterX = CGFloat(positionForValue(upperValue))
+        updateLayerFrames()
 
+    }
 
     fileprivate func initializeLayers() {
         layer.backgroundColor = UIColor.clear.cgColor
@@ -267,14 +274,6 @@ public class RangeSlider: UIControl {
         upperThumbLayer.contentsScale = UIScreen.main.scale
         layer.addSublayer(upperThumbLayer)
     }
-
-    public override func setNeedsDisplay() {
-        super.setNeedsDisplay()
-        lowerThumbCenterX = CGFloat(positionForValue(lowerValue))
-        upperThumbCenterX = CGFloat(positionForValue(upperValue))
-        updateLayerFrames()
-    }
-
 
     func updateLayerFrames() {
         CATransaction.begin()
@@ -293,8 +292,8 @@ public class RangeSlider: UIControl {
     }
 
     // MARK: - Utils
-    func positionForValue(_ value: Double) -> Double {
-        return Double(trackLayer.frame.size.width) * (value / range)
+    func positionForValue(_ value: Double) -> CGFloat {
+        return trackLayer.frame.size.width * CGFloat(value / range)
     }
 
     func valueForPosition(_ position: CGFloat) -> Double {
@@ -309,12 +308,21 @@ public class RangeSlider: UIControl {
     // MARK: - Touches
 
     override public func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        previouslocation = touch.location(in: self)
+        let currentLocation = touch.location(in: self)
+
 
         // Hit test the thumb layers
-        upperThumbLayer.highlighted = upperThumbLayer.frame.contains(previouslocation)
-        lowerThumbLayer.highlighted = !upperThumbLayer.highlighted && lowerThumbLayer.frame.contains(previouslocation)
+        if upperThumbLayer.frame.contains(currentLocation) {
+            upperThumbLayer.highlighted = true
+            currentDistance = upperThumbCenterX - currentLocation.x
+            previousX = upperThumbCenterX
+        } else if lowerThumbLayer.frame.contains(currentLocation) {
+            lowerThumbLayer.highlighted = true
+            currentDistance = lowerThumbCenterX - currentLocation.x
+            previousX = lowerThumbCenterX
+        }
 
+        print("Begin Tracking: \(previouslocation.x) with currentDistance: \(currentDistance)")
         return lowerThumbLayer.highlighted || upperThumbLayer.highlighted
     }
 
@@ -322,17 +330,15 @@ public class RangeSlider: UIControl {
         let location = touch.location(in: self)
 
         // Determine by how much the user has dragged
-        let deltaLocation = location.x - thumbOffset
+        let deltaLocation = previousX
 
         if lowerThumbLayer.highlighted {
-            lowerThumbCenterX = boundValue(deltaLocation, lowerValue: trackLayer.frame.origin.x - thumbOffset, upperValue: upperThumbCenterX - thumbOffset)
-            lowerValue = boundValue(valueForPosition(location.x - thumbOffset), lowerValue: minimumValue, upperValue: upperValue - interval)
+            lowerValue = boundValue(valueForPosition(deltaLocation /*location.x - thumbOffset*/), lowerValue: minimumValue, upperValue: upperValue - interval)
         } else if upperThumbLayer.highlighted {
-            upperThumbCenterX = boundValue(deltaLocation, lowerValue: lowerThumbCenterX + thumbOffset, upperValue: trackLayer.frame.size.width - trackLayer.frame.origin.x + thumbOffset)
-            upperValue = boundValue(valueForPosition(location.x + thumbOffset), lowerValue: lowerValue + interval, upperValue: maximumValue)
+            upperValue = boundValue(valueForPosition(deltaLocation /*location.x */ /*+ thumbOffset */), lowerValue: lowerValue + interval, upperValue: maximumValue)
         }
 
-        previouslocation = location
+        previousX = location.x + currentDistance
 
         sendActions(for: .valueChanged)
 
@@ -342,5 +348,6 @@ public class RangeSlider: UIControl {
     override public func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         lowerThumbLayer.highlighted = false
         upperThumbLayer.highlighted = false
+        currentDistance = 0.0
     }
 }
