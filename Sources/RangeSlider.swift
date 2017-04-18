@@ -125,7 +125,11 @@ public class RangeSlider: UIControl {
         }
     }
 
-    @IBInspectable public var interval: Double = 1.0
+    @IBInspectable public var interval: Double = 1.0 {
+        didSet {
+            updateLayerFrames()
+        }
+    }
 
     /// RangeSlider's track color when value are not in range.
     /// Default value: UIColor(white: 0.9, alpha: 1.0).
