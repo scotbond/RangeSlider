@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
 
         rangeSlider1.maximumValue = 1000.0
-        rangeSlider1.minimumValue = 0.0
+        rangeSlider1.minimumValue = 10.0
         rangeSlider1.lowerValue = 50.0
         rangeSlider1.upperValue = 1000.0
         rangeSlider1.interval = 10
