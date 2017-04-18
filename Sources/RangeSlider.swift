@@ -229,7 +229,6 @@ public class RangeSlider: UIControl {
 
     override public var frame: CGRect {
         didSet {
-            updateLayerFrames()
             lowerThumbCenterX = CGFloat(positionForValue(lowerValue))
             upperThumbCenterX = CGFloat(positionForValue(upperValue))
             updateLayerFrames()
@@ -265,6 +264,9 @@ public class RangeSlider: UIControl {
         upperThumbLayer.rangeSlider = self
         upperThumbLayer.contentsScale = UIScreen.main.scale
         layer.addSublayer(upperThumbLayer)
+
+        lowerThumbCenterX = CGFloat(positionForValue(lowerValue))
+        upperThumbCenterX = CGFloat(positionForValue(upperValue))
     }
 
     func updateLayerFrames() {
