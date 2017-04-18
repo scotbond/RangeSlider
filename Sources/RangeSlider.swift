@@ -338,10 +338,9 @@ public class RangeSlider: UIControl {
 
         initialX += deltaLocation
 
-//        initialX = location.x - currentDistance
         previousX = location.x
 
-//        sendActions(for: .valueChanged)
+        sendActions(for: .valueChanged)
 
         return true
     }
