@@ -137,6 +137,13 @@ public class RangeSlider: UIControl {
         }
     }
 
+    // Minimum space (value) between thumbs
+    @IBInspectable public var minSpaceBetween: Double = 1.0 {
+        didSet {
+            updateLayerFrames()
+        }
+    }
+    
     /// RangeSlider's track color when value are not in range.
     /// Default value: UIColor(white: 0.9, alpha: 1.0).
     @IBInspectable public var trackTintColor: UIColor = UIColor(white: 0.9, alpha: 1.0) {
@@ -184,6 +191,7 @@ public class RangeSlider: UIControl {
 
     @IBInspectable public var thumbHeight: CGFloat = 5.0
 
+    // Should highlight thumbs during drag?
     @IBInspectable public var highlightThumbs: Bool = false {
         didSet {
             updateLayerFrames()
@@ -342,9 +350,9 @@ public class RangeSlider: UIControl {
         // Determine by how much the user has dragged
 
         if lowerThumbLayer.highlighted {
-            lowerValue = boundValue(valueForPosition(initialX), lowerValue: minimumValue, upperValue: upperValue - interval)
+            lowerValue = boundValue(valueForPosition(initialX), lowerValue: minimumValue, upperValue: upperValue - minSpaceBetween)
         } else if upperThumbLayer.highlighted {
-            upperValue = boundValue(valueForPosition(initialX), lowerValue: lowerValue + interval, upperValue: maximumValue)
+            upperValue = boundValue(valueForPosition(initialX), lowerValue: lowerValue + minSpaceBetween, upperValue: maximumValue)
         }
 
         let deltaLocation = location.x - previousX
