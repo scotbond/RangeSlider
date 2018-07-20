@@ -72,7 +72,7 @@ class RangeSliderThumbLayer: CALayer {
         ctx.addPath(thumbPath.cgPath)
         ctx.strokePath()
 
-        if highlighted {
+        if highlighted && slider.highlightThumbs {
             ctx.setFillColor(UIColor(white: 0.0, alpha: 0.1).cgColor)
             ctx.addPath(thumbPath.cgPath)
             ctx.fillPath()
@@ -184,6 +184,12 @@ public class RangeSlider: UIControl {
 
     @IBInspectable public var thumbHeight: CGFloat = 5.0
 
+    @IBInspectable public var highlightThumbs: Bool = false {
+        didSet {
+            updateLayerFrames()
+        }
+    }
+    
     /// Thumb's "button" curvaceousness.
     /// Should be between 0.0 and 1.0.
     /// Default value: 1.0
