@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.license      = "MIT"
   s.author             = { "William Archimede" => "william.archimede@hoodbrains.com" }
-  s.source       = { :git => "https://github.com/warchimede/RangeSlider.git", :tag => s.version.to_s }
+  s.source       = { :git => "https://github.com/scotbond/RangeSlider.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/warchimede'
 
   s.platform     = :ios, '8.0'
