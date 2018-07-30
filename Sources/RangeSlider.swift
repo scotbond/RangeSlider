@@ -370,5 +370,7 @@ public class RangeSlider: UIControl {
         lowerThumbLayer.highlighted = false
         upperThumbLayer.highlighted = false
         currentDistance = 0.0
+        
+        sendActions(for: .editingDidEnd)
     }
 }
